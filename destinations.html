@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="沿着成都的街巷、古寺与青山，找到适合自己的旅行目的地。">
+    <meta name="theme-color" content="#f5f2e9">
+    <title>成都目的地图鉴 — 成都慢游</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --ink:#242d26; --green:#355a43; --rust:#bb6447; --paper:#f5f2e9; --muted:#777a70; --line:#ddd9cd; }
+        * { box-sizing:border-box; }
+        html { scroll-behavior:smooth; }
+        body { margin:0; background:var(--paper); color:var(--ink); font-family:"DM Sans","Noto Sans SC",sans-serif; }
+        a { color:inherit; text-decoration:none; }
+        .wrap { width:min(1120px,calc(100% - 56px)); margin:auto; }
+        header { padding:24px 0; border-bottom:1px solid var(--line); }
+        .nav { display:flex; align-items:center; justify-content:space-between; gap:24px; }
+        .brand { display:flex; align-items:center; gap:10px; font-weight:800; }
+        .seal { display:grid; place-items:center; width:34px; height:34px; color:#fff; background:var(--green); border-radius:50% 50% 4px 50%; font-family:Georgia,serif; }
+        nav { display:flex; flex-wrap:wrap; gap:26px; color:#656b61; font-size:12px; }
+        nav a:hover, nav a[aria-current="page"] { color:var(--rust); }
+        .home-link { border-bottom:1px solid var(--green); padding-bottom:4px; color:var(--green); font-size:12px; }
+        .masthead { display:grid; grid-template-columns:1fr 1.08fr; gap:45px; align-items:center; padding:60px 0 56px; }
+        .overline { color:var(--rust); font-size:10px; letter-spacing:3px; font-weight:700; }
+        h1 { margin:16px 0; font-family:Georgia,"Noto Serif SC",serif; font-size:clamp(43px,6vw,74px); line-height:1.16; font-weight:500; letter-spacing:1px; }
+        .masthead p { max-width:410px; color:var(--muted); font-size:13px; line-height:2; }
+        .index-line { display:flex; gap:22px; margin-top:31px; color:var(--green); font-size:11px; }
+        .index-line span { padding-bottom:5px; border-bottom:1px solid #b8b8a9; }
+        .mast-photo { height:355px; position:relative; background:#b8bdac url("https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=85") center/cover; }
+        .mast-photo::after { content:"青城山 · 一日入山"; position:absolute; right:-15px; bottom:20px; padding:12px 17px; background:var(--paper); color:var(--green); font-size:11px; letter-spacing:1px; }
+        .chapter { display:flex; align-items:baseline; gap:14px; margin:0 0 19px; padding-top:21px; border-top:1px solid var(--line); }
+        .chapter b { color:var(--rust); font:italic 22px Georgia,serif; }
+        .chapter h2 { margin:0; font-family:Georgia,"Noto Serif SC",serif; font-size:23px; font-weight:500; }
+        .chapter small { color:var(--muted); font-size:10px; }
+        .place { display:grid; grid-template-columns:38% 1fr; gap:38px; padding:20px 0 45px; border-bottom:1px solid var(--line); scroll-margin-top:24px; }
+        .place:nth-of-type(even) { grid-template-columns:1fr 38%; }
+        .place:nth-of-type(even) .place-image { order:2; }
+        .place-image { min-height:270px; background-size:cover; background-position:center; }
+        #kuanzhai .place-image { background-image:url("https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?auto=format&fit=crop&w=1000&q=85"); }
+        #qingcheng .place-image { background-image:url("https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1000&q=85"); }
+        #taikoo .place-image { background-image:url("https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1000&q=85"); }
+        .place-copy { align-self:center; padding:8px 4%; }
+        .place-type { color:var(--rust); font-size:10px; letter-spacing:2px; }
+        .place h3 { margin:11px 0; font-family:Georgia,"Noto Serif SC",serif; font-size:35px; font-weight:500; }
+        .place-copy p { max-width:460px; color:var(--muted); font-size:12px; line-height:2; }
+        .place-facts { display:flex; flex-wrap:wrap; gap:15px 25px; margin:20px 0; color:#5f685d; font-size:10px; }
+        .place-facts span::before { content:"— "; color:var(--rust); }
+        .read-link { color:var(--green); font-size:11px; font-weight:700; border-bottom:1px solid #aeb8a9; padding-bottom:5px; }
+        .aside { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:29px 0 55px; }
+        .aside p { color:var(--muted); font-size:12px; line-height:1.8; }
+        .aside a { padding:13px 17px; background:var(--green); color:white; font-size:11px; white-space:nowrap; }
+        footer { padding:19px 0; border-top:1px solid var(--line); color:var(--muted); font-size:10px; }
+        footer .wrap { display:flex; justify-content:space-between; gap:16px; }
+        @media(max-width:700px) {
+            .wrap { width:calc(100% - 36px); }
+            .nav { flex-wrap:wrap; }
+            nav { order:3; width:100%; gap:18px; }
+            .masthead { grid-template-columns:1fr; gap:25px; padding:43px 0; }
+            .mast-photo { height:270px; }
+            .place, .place:nth-of-type(even) { grid-template-columns:1fr; gap:18px; padding-bottom:30px; }
+            .place:nth-of-type(even) .place-image { order:0; }
+            .place-image { min-height:230px; }
+            .place-copy { padding:8px 0; }
+            .place h3 { font-size:30px; }
+            .aside { align-items:flex-start; flex-direction:column; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="wrap nav">
+            <a class="brand" href="index.html"><span class="seal">成</span>成都慢游</a>
+            <nav aria-label="主导航"><a href="index.html">首页</a><a href="destinations.html" aria-current="page">目的地图鉴</a><a href="itinerary.html">慢游路线</a><a href="food.html">成都好味</a></nav>
+            <a class="home-link" href="index.html">回到首页 ↗</a>
+        </div>
+    </header>
+    <main class="wrap">
+        <section class="masthead">
+            <div>
+                <div class="overline">THE CHENGDU FIELD GUIDE · 2025</div>
+                <h1>街巷之外，<br>还有山河。</h1>
+                <p>不急着打卡。把地图摊开，沿着老街走进日常，再去城外的青山里透一口气。</p>
+                <div class="index-line"><span>01 老城巷陌</span><span>02 山野清风</span><span>03 城市新意</span></div>
+            </div>
+            <div class="mast-photo" role="img" aria-label="青城山的山林风光"></div>
+        </section>
+
+        <section aria-labelledby="old-town">
+            <div class="chapter"><b>01</b><h2 id="old-town">老城巷陌</h2><small>WALK THE OLD STREETS</small></div>
+            <article class="place" id="kuanzhai">
+                <div class="place-image" role="img" aria-label="成都传统街巷与院落"></div>
+                <div class="place-copy"><div class="place-type">ALLEYS & COURTYARDS</div><h3>宽窄巷子</h3><p>青砖、木门、老院墙，几条并不宽的巷子藏着成都慢下来的理由。早些来，找间茶馆坐一会儿，再从井巷子一路闲逛。</p><div class="place-facts"><span>建议停留 2—3 小时</span><span>适合步行探索</span><span>地铁 4 号线</span></div><a class="read-link" href="itinerary.html#day-one">放进一日路线 ↗</a></div>
+            </article>
+        </section>
+        <section aria-labelledby="green-hills">
+            <div class="chapter"><b>02</b><h2 id="green-hills">山野清风</h2><small>FIND A QUIETER PACE</small></div>
+            <article class="place" id="qingcheng">
+                <div class="place-image" role="img" aria-label="青城山幽深静谧的林间小径"></div>
+                <div class="place-copy"><div class="place-type">MOUNTAIN & MIST</div><h3>青城山</h3><p>山路藏在浓荫和薄雾之间，脚步自然就慢下来。留出大半天给山林，不妨带上轻便雨衣，给天气一点即兴发挥的空间。</p><div class="place-facts"><span>建议停留 5—7 小时</span><span>穿舒适步行鞋</span><span>适合春秋出发</span></div><a class="read-link" href="itinerary.html#day-two">安排一次山行 ↗</a></div>
+            </article>
+        </section>
+        <section aria-labelledby="new-city">
+            <div class="chapter"><b>03</b><h2 id="new-city">城市新意</h2><small>OLD SOUL, NEW CITY</small></div>
+            <article class="place" id="taikoo">
+                <div class="place-image" role="img" aria-label="成都城市街区的新旧建筑"></div>
+                <div class="place-copy"><div class="place-type">CITY STROLL</div><h3>太古里与大慈寺</h3><p>从开放式街区拐进千年古寺，古老屋檐和当代建筑只隔着一条街。适合把购物、咖啡和一段安静的驻足排进同一个下午。</p><div class="place-facts"><span>建议停留 2 小时</span><span>夜景也值得一看</span><span>地铁 2、3 号线</span></div><a class="read-link" href="food.html">逛累了去吃点好的 ↗</a></div>
+            </article>
+        </section>
+        <aside class="aside"><p>看完目的地，下一站可以去吃一顿地道川味，<br>也可以直接带走一份慢游路线。</p><a href="food.html">打开成都好味清单　↗</a><a href="itinerary.html">查看旅行路线　↗</a></aside>
+    </main>
+    <footer><div class="wrap"><span>成都慢游 · 给旅行留一点空白</span><span><a href="index.html">首页</a>　/　<a href="itinerary.html">路线</a>　/　<a href="food.html">美食</a></span></div></footer>
+</body>
+</html>

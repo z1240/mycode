@@ -2,9 +2,443 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>测试页面</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f7f6f1">
+    <meta name="description" content="发现成都的悠闲与惊喜，从街巷烟火到川西秘境，开启你的成都之旅。">
+    <title>成都慢游 — 遇见一座来了就不想走的城市</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #202a23;
+            --muted: #788078;
+            --green: #355a43;
+            --green-dark: #244333;
+            --orange: #e77a4b;
+            --cream: #f7f6f1;
+            --line: #e8e7df;
+            --serif: Georgia, "Noto Serif SC", serif;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            color: var(--ink);
+            background: var(--cream);
+            font-family: "DM Sans", "Noto Sans SC", sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        button, input { font: inherit; }
+        a { color: inherit; text-decoration: none; }
+        button { color: inherit; }
+        .container { width: min(1180px, calc(100% - 64px)); margin: 0 auto; }
+
+        .topbar {
+            height: 82px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(32, 42, 35, .08);
+            position: relative;
+            z-index: 5;
+        }
+        .nav-wrap { display: flex; align-items: center; justify-content: space-between; gap: 30px; }
+        .brand { display: inline-flex; align-items: center; gap: 10px; font-size: 19px; font-weight: 800; letter-spacing: -.7px; white-space: nowrap; }
+        .brand-mark {
+            width: 35px; height: 35px; border-radius: 12px 12px 12px 4px;
+            display: grid; place-items: center; color: white; background: var(--green);
+            font-family: var(--serif); font-size: 20px; font-style: italic;
+        }
+        .nav-links { display: flex; align-items: center; gap: 34px; margin-left: auto; }
+        .nav-links a { color: #626b63; font-size: 13px; transition: color .2s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--green); }
+        .nav-actions { display: flex; align-items: center; gap: 16px; }
+        .language { font-size: 12px; color: #626b63; }
+        .nav-cta { padding: 11px 18px; border-radius: 99px; background: var(--green); color: white; font-size: 12px; font-weight: 600; transition: background .2s, transform .2s; }
+        .nav-cta:hover { background: var(--green-dark); transform: translateY(-1px); }
+        .menu-toggle { display: none; border: 0; background: transparent; padding: 8px; cursor: pointer; }
+
+        .hero { padding: 37px 0 0; }
+        .hero-card {
+            min-height: 530px;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            background: #4d5946 url("https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=2200&q=85") center 48% / cover;
+            display: flex;
+            align-items: center;
+        }
+        .hero-card::before {
+            content: ""; position: absolute; inset: 0;
+            background: linear-gradient(90deg, rgba(21, 34, 28, .76) 0%, rgba(21, 34, 28, .49) 45%, rgba(21, 34, 28, .04) 100%);
+        }
+        .hero-content { position: relative; z-index: 1; width: 590px; padding: 57px 0 66px 8.5%; color: white; }
+        .eyebrow { display: flex; align-items: center; gap: 10px; text-transform: uppercase; letter-spacing: 2.5px; font-size: 10px; font-weight: 600; }
+        .eyebrow::before { content: ""; width: 25px; height: 1px; background: currentColor; opacity: .8; }
+        .hero h1 { margin: 24px 0 16px; font-family: var(--serif); font-size: clamp(42px, 5.3vw, 68px); font-weight: 500; line-height: 1.18; letter-spacing: 1px; }
+        .hero h1 span { color: #f0bf8a; }
+        .hero-copy { max-width: 390px; margin: 0; color: rgba(255,255,255,.82); font-size: 13px; line-height: 2; }
+        .hero-buttons { display: flex; align-items: center; gap: 23px; margin-top: 30px; }
+        .button-primary { border: 0; border-radius: 3px; padding: 14px 21px; background: #f2bf8c; color: #263d30; font-size: 12px; font-weight: 700; cursor: pointer; transition: background .2s, transform .2s; }
+        .button-primary:hover { background: #ffd2a5; transform: translateY(-2px); }
+        .text-link { display: inline-flex; align-items: center; gap: 8px; color: white; font-size: 12px; }
+        .text-link span { font-size: 17px; transition: transform .2s; }
+        .text-link:hover span { transform: translateX(4px); }
+        .hero-note { position: absolute; right: 28px; bottom: 25px; z-index: 1; color: rgba(255,255,255,.76); font-size: 10px; letter-spacing: 1px; }
+        .hero-note span { color: #f2bf8c; }
+
+        .intro-strip { display: grid; grid-template-columns: 1fr auto; align-items: center; padding: 30px 2px 6px; gap: 30px; }
+        .intro-text { color: #697169; font-size: 12px; line-height: 1.9; }
+        .intro-text strong { color: var(--ink); font-size: 15px; font-weight: 600; margin-right: 12px; }
+        .intro-stats { display: flex; align-items: center; gap: 30px; }
+        .stat { display: flex; align-items: baseline; gap: 7px; white-space: nowrap; }
+        .stat strong { font-family: var(--serif); font-size: 22px; font-weight: 500; color: var(--green); }
+        .stat span { color: var(--muted); font-size: 10px; }
+
+        .section { padding: 98px 0 0; }
+        .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 30px; }
+        .section-kicker { color: var(--orange); font-size: 10px; font-weight: 700; letter-spacing: 2.2px; text-transform: uppercase; }
+        .section h2 { margin: 9px 0 0; font-family: var(--serif); font-size: 36px; font-weight: 500; letter-spacing: .5px; }
+        .section-subtitle { margin: 10px 0 0; color: var(--muted); font-size: 12px; }
+        .all-link { display: inline-flex; align-items: center; gap: 9px; color: var(--green); font-size: 12px; font-weight: 600; margin-bottom: 4px; white-space: nowrap; }
+        .all-link span { font-size: 16px; }
+
+        .category-row { display: flex; align-items: center; gap: 9px; margin-bottom: 25px; }
+        .category-btn { border: 1px solid #dedfd7; border-radius: 99px; background: transparent; padding: 9px 16px; color: #687168; font-size: 11px; cursor: pointer; transition: all .2s; }
+        .category-btn:hover, .category-btn.selected { border-color: var(--green); background: var(--green); color: white; }
+        .destination-search { display: flex; align-items: center; gap: 9px; width: min(250px, 100%); margin: -7px 0 25px auto; padding: 10px 13px; border: 1px solid #dedfd7; border-radius: 3px; color: var(--muted); }
+        .destination-search span { font-size: 15px; }
+        .destination-search input { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--ink); font-size: 11px; }
+        .destination-search input::placeholder { color: #929991; }
+        .destination-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 19px; }
+        .destination-card { min-width: 0; transition: transform .25s, opacity .2s; }
+        .destination-card:hover { transform: translateY(-5px); }
+        .destination-card.hidden { display: none; }
+        .destination-image { position: relative; height: 235px; border-radius: 5px; overflow: hidden; background: #d7d9cf; }
+        .destination-image img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s; }
+        .destination-card:hover img { transform: scale(1.05); }
+        .image-tag { position: absolute; left: 12px; top: 12px; padding: 6px 9px; border-radius: 2px; background: rgba(247,246,241,.94); color: var(--green); font-size: 10px; }
+        .save-btn { position: absolute; top: 11px; right: 11px; border: 0; width: 31px; height: 31px; border-radius: 50%; display: grid; place-items: center; background: rgba(255,255,255,.93); font-size: 15px; cursor: pointer; transition: color .2s, transform .2s; }
+        .save-btn:hover, .save-btn.saved { color: #d75c4c; transform: scale(1.08); }
+        .destination-info { display: flex; justify-content: space-between; align-items: start; gap: 10px; padding: 14px 1px 0; }
+        .destination-info h3 { margin: 0; font-size: 15px; font-weight: 600; }
+        .destination-info p { margin: 6px 0 0; color: var(--muted); font-size: 10px; }
+        .rating { display: inline-flex; align-items: center; gap: 4px; color: #788078; font-size: 10px; white-space: nowrap; }
+        .rating span { color: #df9c50; font-size: 12px; }
+
+        .feature-section { padding-top: 100px; }
+        .feature-card { display: grid; grid-template-columns: 1fr 1fr; min-height: 365px; background: #e9eee5; border-radius: 6px; overflow: hidden; }
+        .feature-photo { min-height: 365px; background: url("https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?auto=format&fit=crop&w=1100&q=85") center / cover; }
+        .feature-copy { display: flex; flex-direction: column; justify-content: center; padding: 48px 11%; }
+        .feature-copy .section-kicker { color: var(--green); }
+        .feature-copy h2 { margin: 16px 0 14px; font-family: var(--serif); font-size: 33px; line-height: 1.4; font-weight: 500; }
+        .feature-copy p { margin: 0; color: #69756a; font-size: 12px; line-height: 2; }
+        .feature-meta { display: flex; gap: 20px; margin: 23px 0 25px; color: #59665a; font-size: 10px; }
+        .feature-meta span::before { content: "✦"; color: var(--orange); margin-right: 6px; }
+        .feature-copy .button-primary { align-self: flex-start; background: var(--green); color: white; }
+        .feature-copy .button-primary:hover { background: var(--green-dark); }
+
+        .quote-section { padding: 90px 0 88px; text-align: center; }
+        .quote-mark { color: #d8a878; font-family: var(--serif); font-size: 51px; height: 42px; }
+        .quote-section blockquote { max-width: 730px; margin: 15px auto 19px; font-family: var(--serif); font-size: clamp(20px, 2.6vw, 29px); line-height: 1.8; font-weight: 500; }
+        .quote-section p { color: var(--muted); font-size: 11px; margin: 0; }
+        .quote-dots { display: flex; justify-content: center; gap: 7px; margin-top: 24px; }
+        .quote-dots i { width: 5px; height: 5px; border-radius: 50%; background: #d2d3cb; }
+        .quote-dots i:first-child { width: 18px; border-radius: 99px; background: var(--green); }
+
+        .footer { padding: 35px 0; border-top: 1px solid var(--line); }
+        .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+        .footer-brand { display: flex; align-items: center; gap: 10px; }
+        .footer-brand .brand-mark { width: 29px; height: 29px; font-size: 17px; border-radius: 10px 10px 10px 3px; }
+        .footer-brand strong { font-size: 13px; }
+        .footer-brand small { display: block; margin-top: 3px; color: var(--muted); font-size: 9px; }
+        .footer-copy { color: var(--muted); font-size: 10px; }
+        .footer-social { display: flex; gap: 17px; color: #687168; font-size: 11px; }
+        .footer-social a:hover { color: var(--green); }
+        .toast { position: fixed; left: 50%; bottom: 24px; z-index: 10; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; padding: 11px 18px; border-radius: 99px; background: #253e30; color: white; font-size: 12px; transition: all .25s; }
+        .toast.show { transform: translate(-50%, 0); opacity: 1; }
+
+        @media (max-width: 900px) {
+            .container { width: min(100% - 42px, 700px); }
+            .nav-links { gap: 20px; }
+            .nav-links a { font-size: 12px; }
+            .language { display: none; }
+            .hero-card { min-height: 475px; }
+            .hero-content { padding-left: 7%; }
+            .destination-grid { grid-template-columns: repeat(2, 1fr); gap: 26px 18px; }
+            .destination-image { height: 245px; }
+            .feature-copy { padding: 38px 9%; }
+            .intro-stats { gap: 17px; }
+            .stat { gap: 4px; }
+        }
+        @media (max-width: 640px) {
+            .container { width: calc(100% - 36px); }
+            .topbar { height: 68px; }
+            .nav-wrap { gap: 12px; }
+            .brand { font-size: 17px; }
+            .nav-actions { margin-left: auto; }
+            .nav-cta { padding: 10px 13px; font-size: 11px; }
+            .menu-toggle { display: block; }
+            .menu-toggle span { display: block; width: 20px; height: 1.5px; margin: 5px 0; background: var(--ink); }
+            .nav-links { display: none; position: absolute; top: 67px; left: 0; right: 0; padding: 18px 22px 22px; flex-direction: column; align-items: flex-start; gap: 18px; background: var(--cream); border-bottom: 1px solid var(--line); }
+            .nav-links.open { display: flex; }
+            .nav-links a { font-size: 13px; }
+            .hero { padding-top: 18px; }
+            .hero-card { min-height: 500px; align-items: end; background-position: 58% center; }
+            .hero-card::before { background: linear-gradient(0deg, rgba(21,34,28,.86) 0%, rgba(21,34,28,.48) 56%, rgba(21,34,28,.1) 100%); }
+            .hero-content { width: 100%; padding: 42px 25px 48px; }
+            .hero h1 { margin: 17px 0 12px; font-size: 47px; }
+            .hero-copy { font-size: 12px; }
+            .hero-note { right: 15px; bottom: 12px; font-size: 8px; }
+            .intro-strip { grid-template-columns: 1fr; padding-top: 23px; gap: 19px; }
+            .intro-text { font-size: 11px; }
+            .intro-text strong { display: block; margin-bottom: 3px; }
+            .intro-stats { justify-content: space-between; }
+            .stat strong { font-size: 20px; }
+            .section { padding-top: 70px; }
+            .section-heading { align-items: start; margin-bottom: 22px; }
+            .section h2 { font-size: 30px; }
+            .section-subtitle { max-width: 250px; line-height: 1.7; }
+            .all-link { margin-top: 23px; font-size: 10px; }
+            .category-row { overflow-x: auto; padding-bottom: 4px; margin-right: -18px; }
+            .category-btn { flex: 0 0 auto; padding: 8px 13px; }
+            .destination-search { width: 100%; margin-top: -7px; }
+            .destination-grid { gap: 22px 12px; }
+            .destination-image { height: 190px; }
+            .destination-info { display: block; }
+            .destination-info h3 { font-size: 13px; }
+            .destination-info p { font-size: 9px; }
+            .rating { margin-top: 6px; }
+            .feature-section { padding-top: 72px; }
+            .feature-card { grid-template-columns: 1fr; }
+            .feature-photo { min-height: 250px; }
+            .feature-copy { padding: 31px 25px 35px; }
+            .feature-copy h2 { font-size: 29px; }
+            .quote-section { padding: 70px 0; }
+            .quote-section blockquote { font-size: 21px; }
+            .footer-inner { align-items: flex-start; flex-wrap: wrap; }
+            .footer-copy { order: 3; width: 100%; }
+            .footer-social { margin-left: auto; align-items: center; }
+        }
+        @media (max-width: 380px) {
+            .destination-image { height: 160px; }
+            .hero h1 { font-size: 42px; }
+            .intro-stats { gap: 9px; }
+            .stat span { font-size: 9px; }
+        }
+    </style>
 </head>
 <body>
-    <h1>我的个人名片</h1>
+    <header class="topbar">
+        <div class="container nav-wrap">
+            <a class="brand" href="index.html" aria-label="成都慢游首页">
+                <span class="brand-mark">成</span>
+                <span>成都慢游</span>
+            </a>
+            <nav class="nav-links" id="site-nav" aria-label="主导航">
+                <a class="active" href="index.html">首页</a>
+                <a href="destinations.html">目的地</a>
+                <a href="itinerary.html">旅行灵感</a>
+                <a href="food.html">成都美食</a>
+            </nav>
+            <div class="nav-actions">
+                <span class="language">简体中文⌄</span>
+                <a class="nav-cta" href="destinations.html">开始探索 <span aria-hidden="true">↗</span></a>
+                <button class="menu-toggle" type="button" aria-label="打开导航菜单" aria-expanded="false" aria-controls="site-nav">
+                    <span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero container" id="home">
+            <div class="hero-card">
+                <div class="hero-content">
+                    <div class="eyebrow">A SLOW JOURNEY IN CHENGDU</div>
+                    <h1>慢下来，<br><span>才是成都。</span></h1>
+                    <p class="hero-copy">在茶香与烟火之间，找到属于自己的节奏。去看熊猫，逛老街，吃一顿不赶时间的火锅。</p>
+                    <div class="hero-buttons">
+                        <a class="button-primary" href="destinations.html">发现成都 <span aria-hidden="true">↗</span></a>
+                        <a class="text-link" href="itinerary.html">看看旅行灵感 <span aria-hidden="true">→</span></a>
+                    </div>
+                </div>
+                <div class="hero-note">30°39′N&nbsp; 104°04′E <span>·</span> 中国·四川</div>
+            </div>
+            <div class="intro-strip">
+                <div class="intro-text"><strong>一座来了就不想走的城市</strong>这里有悠闲自在的生活，也有说走就走的远方。</div>
+                <div class="intro-stats" aria-label="成都旅行数据">
+                    <div class="stat"><strong>3,000+</strong><span>年建城史</span></div>
+                    <div class="stat"><strong>4.9</strong><span>旅行者评分</span></div>
+                    <div class="stat"><strong>365</strong><span>种慢游方式</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section container" id="destinations">
+            <div class="section-heading">
+                <div>
+                    <div class="section-kicker">FIND YOUR CHENGDU</div>
+                    <h2>这一次，去哪里？</h2>
+                    <p class="section-subtitle">从城市街巷到山野之间，收藏你的成都目的地。</p>
+                </div>
+                <a class="all-link" href="destinations.html">探索全部目的地 <span aria-hidden="true">→</span></a>
+            </div>
+            <div class="category-row" role="group" aria-label="筛选目的地">
+                <button class="category-btn selected" type="button" data-filter="all" aria-pressed="true">全部目的地</button>
+                <button class="category-btn" type="button" data-filter="culture" aria-pressed="false">人文古迹</button>
+                <button class="category-btn" type="button" data-filter="food" aria-pressed="false">烟火美食</button>
+                <button class="category-btn" type="button" data-filter="nature" aria-pressed="false">自然风光</button>
+                <button class="category-btn" type="button" data-filter="city" aria-pressed="false">城市漫步</button>
+            </div>
+            <label class="destination-search">
+                <span aria-hidden="true">⌕</span>
+                <input type="search" id="destination-search" placeholder="搜索目的地" aria-label="搜索目的地">
+            </label>
+            <div class="destination-grid">
+                <article class="destination-card" data-category="culture">
+                    <div class="destination-image">
+                        <img src="https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?auto=format&fit=crop&w=850&q=80" alt="成都古色古香的传统建筑" loading="lazy">
+                        <span class="image-tag">人文古迹</span>
+                        <button class="save-btn" type="button" aria-label="收藏宽窄巷子" aria-pressed="false">♡</button>
+                    </div>
+                    <div class="destination-info">
+                        <div><h3><a href="destinations.html#kuanzhai">宽窄巷子</a></h3><p>在老成都的院落里，遇见时光</p></div>
+                        <div class="rating"><span>★</span> 4.9</div>
+                    </div>
+                </article>
+                <article class="destination-card" data-category="nature">
+                    <div class="destination-image">
+                        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=850&q=80" alt="青城山间云雾环绕的自然风景" loading="lazy">
+                        <span class="image-tag">自然风光</span>
+                        <button class="save-btn" type="button" aria-label="收藏青城山" aria-pressed="false">♡</button>
+                    </div>
+                    <div class="destination-info">
+                        <div><h3><a href="destinations.html#qingcheng">青城山</a></h3><p>山色空蒙，寻一段清静时光</p></div>
+                        <div class="rating"><span>★</span> 4.8</div>
+                    </div>
+                </article>
+                <article class="destination-card" data-category="food">
+                    <div class="destination-image">
+                        <img src="https://images.unsplash.com/photo-1555126634-323283e090fa?auto=format&fit=crop&w=850&q=80" alt="热气腾腾、香气四溢的四川火锅" loading="lazy">
+                        <span class="image-tag">烟火美食</span>
+                        <button class="save-btn" type="button" aria-label="收藏玉林路" aria-pressed="false">♡</button>
+                    </div>
+                    <div class="destination-info">
+                        <div><h3><a href="food.html">玉林路</a></h3><p>从街头小馆开始，吃遍成都烟火</p></div>
+                        <div class="rating"><span>★</span> 4.9</div>
+                    </div>
+                </article>
+                <article class="destination-card" data-category="city">
+                    <div class="destination-image">
+                        <img src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=850&q=80" alt="成都充满设计感的城市建筑" loading="lazy">
+                        <span class="image-tag">城市漫步</span>
+                        <button class="save-btn" type="button" aria-label="收藏太古里" aria-pressed="false">♡</button>
+                    </div>
+                    <div class="destination-info">
+                        <div><h3><a href="destinations.html#taikoo">太古里</a></h3><p>古意与新潮，在街角自在相逢</p></div>
+                        <div class="rating"><span>★</span> 4.7</div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="section feature-section container" id="stories">
+            <div class="feature-card">
+                <div class="feature-photo" role="img" aria-label="成都传统街区的屋檐与庭院"></div>
+                <div class="feature-copy">
+                    <div class="section-kicker">A DAY IN CHENGDU</div>
+                    <h2>把一天，过成<br>成都的样子。</h2>
+                    <p>早上去巷口喝一碗盖碗茶，午后沿着锦江慢慢走，等夜色落下来，再把热气腾腾的火锅摆上桌。</p>
+                    <div class="feature-meta"><span>慢游路线</span><span>1 日行程</span><span>适合第一次来</span></div>
+                    <a class="button-primary" href="itinerary.html">看看这条路线 <span aria-hidden="true">↗</span></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="quote-section container" id="about">
+            <div class="quote-mark" aria-hidden="true">“</div>
+            <blockquote>成都的好，不在于你看了多少风景，<br>而在于你终于有时间，好好生活。</blockquote>
+            <p>—— 写给每一个想慢下来的你</p>
+            <div class="quote-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <a class="footer-brand" href="index.html">
+                <span class="brand-mark">成</span>
+                <span><strong>成都慢游</strong><small>CHENGDU, AT YOUR OWN PACE</small></span>
+            </a>
+            <div class="footer-copy">把日子过慢一点，把成都看多一点。<br>© 2025 成都慢游 · 遇见巴适生活</div>
+            <div class="footer-social"><a href="destinations.html">目的地</a><a href="itinerary.html">旅行路线</a><a href="food.html">成都美食</a></div>
+        </div>
+    </footer>
+    <div class="toast" role="status" aria-live="polite"></div>
+
+    <script>
+        const filterButtons = document.querySelectorAll(".category-btn");
+        const destinationCards = document.querySelectorAll(".destination-card");
+        const destinationSearch = document.querySelector("#destination-search");
+        const toast = document.querySelector(".toast");
+        let activeFilter = "all";
+        let toastTimer;
+
+        function filterDestinations() {
+            const query = destinationSearch.value.trim().toLocaleLowerCase();
+            destinationCards.forEach((card) => {
+                const matchesCategory = activeFilter === "all" || card.dataset.category === activeFilter;
+                const matchesQuery = card.textContent.toLocaleLowerCase().includes(query);
+                card.classList.toggle("hidden", !matchesCategory || !matchesQuery);
+            });
+        }
+
+        function showToast(message) {
+            toast.textContent = message;
+            toast.classList.add("show");
+            window.clearTimeout(toastTimer);
+            toastTimer = window.setTimeout(() => toast.classList.remove("show"), 2200);
+        }
+
+        filterButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+                activeFilter = button.dataset.filter;
+                filterButtons.forEach((item) => {
+                    const selected = item === button;
+                    item.classList.toggle("selected", selected);
+                    item.setAttribute("aria-pressed", String(selected));
+                });
+                filterDestinations();
+            });
+        });
+        destinationSearch.addEventListener("input", filterDestinations);
+
+        document.querySelectorAll(".save-btn").forEach((button) => {
+            button.addEventListener("click", () => {
+                const saved = button.getAttribute("aria-pressed") !== "true";
+                button.setAttribute("aria-pressed", String(saved));
+                button.classList.toggle("saved", saved);
+                button.textContent = saved ? "♥" : "♡";
+                showToast(saved ? "已加入你的旅行收藏" : "已取消收藏");
+            });
+        });
+
+        const menuToggle = document.querySelector(".menu-toggle");
+        const navLinks = document.querySelector(".nav-links");
+        menuToggle.addEventListener("click", () => {
+            const open = menuToggle.getAttribute("aria-expanded") !== "true";
+            menuToggle.setAttribute("aria-expanded", String(open));
+            menuToggle.setAttribute("aria-label", open ? "关闭导航菜单" : "打开导航菜单");
+            navLinks.classList.toggle("open", open);
+        });
+        navLinks.querySelectorAll("a").forEach((link) => {
+            link.addEventListener("click", () => {
+                navLinks.classList.remove("open");
+                menuToggle.setAttribute("aria-expanded", "false");
+                menuToggle.setAttribute("aria-label", "打开导航菜单");
+            });
+        });
+    </script>
 </body>
 </html>

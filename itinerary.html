@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="一份留有空白的成都两日慢游路线，从巷子茶馆走到青城山。">
+    <meta name="theme-color" content="#e9e5d9">
+    <title>成都慢游路线 — 成都慢游</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --ink:#263129; --green:#3e604b; --orange:#bc714e; --paper:#e9e5d9; --card:#f5f2e9; --muted:#74786f; --line:#d5d1c5; }
+        * { box-sizing:border-box; }
+        html { scroll-behavior:smooth; }
+        body { margin:0; background:var(--paper); color:var(--ink); font-family:"DM Sans","Noto Sans SC",sans-serif; }
+        a { color:inherit; text-decoration:none; }
+        .wrap { width:min(1150px,calc(100% - 56px)); margin:auto; }
+        header { padding:20px 0; }
+        .nav { display:flex; justify-content:space-between; align-items:center; gap:20px; }
+        .brand { display:flex; align-items:center; gap:10px; font-size:14px; font-weight:800; }
+        .stamp { display:grid; place-items:center; width:33px; height:33px; border:1px solid var(--green); color:var(--green); font-family:Georgia,serif; transform:rotate(-7deg); }
+        nav { display:flex; flex-wrap:wrap; gap:25px; color:#666e64; font-size:11px; }
+        nav a:hover, nav a[aria-current="page"] { color:var(--orange); }
+        .weather { padding:8px 11px; border:1px solid var(--line); color:var(--muted); font-size:10px; white-space:nowrap; }
+        .intro { padding:61px 0 45px; display:grid; grid-template-columns:1fr auto; align-items:end; gap:30px; }
+        .eyebrow { color:var(--orange); font-size:10px; font-weight:700; letter-spacing:2.5px; }
+        h1 { margin:13px 0 12px; font-family:Georgia,"Noto Serif SC",serif; font-size:clamp(43px,6vw,72px); font-weight:500; line-height:1.18; }
+        .intro p { max-width:570px; color:var(--muted); font-size:12px; line-height:2; }
+        .route-badge { width:115px; height:115px; border:1px solid #a6aa9b; border-radius:50%; display:grid; place-content:center; text-align:center; color:var(--green); font-family:Georgia,serif; transform:rotate(8deg); }
+        .route-badge strong { font-size:29px; font-weight:500; }
+        .route-badge span { font:9px "DM Sans",sans-serif; letter-spacing:1px; }
+        .route-cover { height:270px; position:relative; background:linear-gradient(90deg,rgba(28,42,33,.52),transparent 80%),url("https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1800&q=85") center 48%/cover; }
+        .cover-label { position:absolute; left:5%; bottom:22px; color:white; font-family:Georgia,"Noto Serif SC",serif; font-size:20px; }
+        .layout { display:grid; grid-template-columns:minmax(0,1fr) 285px; gap:46px; padding:48px 0 80px; }
+        .day-title { display:flex; align-items:center; gap:14px; margin:0 0 22px; }
+        .day-title b { color:var(--orange); font:italic 36px Georgia,serif; }
+        .day-title h2 { margin:0; font-family:Georgia,"Noto Serif SC",serif; font-size:24px; font-weight:500; }
+        .day-title small { margin-left:auto; color:var(--muted); font-size:9px; letter-spacing:1px; }
+        .timeline { margin:0 0 55px 15px; padding-left:29px; border-left:1px solid #b8bbaf; }
+        .stop { position:relative; display:grid; grid-template-columns:80px minmax(0,1fr); gap:17px; padding:0 0 29px; scroll-margin-top:20px; }
+        .stop::before { content:""; position:absolute; left:-35px; top:4px; width:11px; height:11px; border:2px solid var(--paper); border-radius:50%; background:var(--green); box-shadow:0 0 0 1px var(--green); }
+        .time { padding-top:2px; color:var(--orange); font:italic 15px Georgia,serif; }
+        .stop-content { border-bottom:1px solid var(--line); padding-bottom:20px; }
+        .stop-content h3 { margin:0 0 7px; font-size:15px; font-weight:700; }
+        .stop-content p { margin:0; color:var(--muted); font-size:11px; line-height:1.9; }
+        .stop-content a { display:inline-block; margin-top:9px; color:var(--green); font-size:10px; border-bottom:1px solid #aab4a9; padding-bottom:3px; }
+        aside { align-self:start; position:sticky; top:22px; padding:23px; background:var(--card); }
+        aside .side-label { color:var(--orange); font-size:9px; letter-spacing:2px; }
+        aside h2 { margin:9px 0 17px; font:500 24px Georgia,"Noto Serif SC",serif; }
+        .check { display:flex; gap:10px; padding:12px 0; border-top:1px solid var(--line); color:#626a60; font-size:10px; line-height:1.7; }
+        .check b { color:var(--green); font-size:14px; }
+        .tip { margin-top:15px; padding:14px; background:#e9e5d9; color:#6b7066; font-size:10px; line-height:1.8; }
+        .tip strong { display:block; margin-bottom:4px; color:var(--ink); }
+        .side-links { display:grid; gap:10px; margin-top:18px; color:var(--green); font-size:10px; }
+        .end-note { padding:26px 0; border-top:1px solid var(--line); color:var(--muted); font:italic 17px Georgia,"Noto Serif SC",serif; text-align:center; }
+        footer { padding:18px 0; border-top:1px solid var(--line); color:var(--muted); font-size:10px; }
+        footer .wrap { display:flex; justify-content:space-between; gap:20px; }
+        @media(max-width:800px) {
+            .wrap { width:calc(100% - 36px); }
+            .nav { flex-wrap:wrap; }
+            nav { order:3; width:100%; gap:18px; }
+            .intro { padding-top:44px; }
+            .route-badge { width:86px; height:86px; }
+            .route-badge strong { font-size:23px; }
+            .layout { grid-template-columns:1fr; gap:5px; }
+            aside { position:static; }
+            .route-cover { height:220px; }
+        }
+        @media(max-width:480px) {
+            .intro { grid-template-columns:1fr; }
+            .route-badge { display:none; }
+            .day-title small { display:none; }
+            .stop { grid-template-columns:58px 1fr; gap:10px; }
+            .timeline { padding-left:20px; margin-left:9px; }
+            .stop::before { left:-26px; }
+            footer .wrap { flex-direction:column; }
+        }
+    </style>
+</head>
+<body>
+    <header><div class="wrap nav">
+        <a class="brand" href="index.html"><span class="stamp">成</span>成都慢游 · 路线手记</a>
+        <nav aria-label="主导航"><a href="index.html">首页</a><a href="destinations.html">目的地</a><a href="itinerary.html" aria-current="page">慢游路线</a><a href="food.html">成都好味</a></nav>
+        <div class="weather">成都　☀ 22°　适合出门</div>
+    </div></header>
+    <main>
+        <section class="wrap intro">
+            <div><div class="eyebrow">TAKE YOUR TIME / TWO DAYS</div><h1>把成都，走慢一点。</h1><p>一份不需要赶路的两日路线。第一天把时间留给街巷和好味道，第二天出城去山里呼吸。</p></div>
+            <div class="route-badge"><strong>2</strong><span>DAYS<br>IN CHENGDU</span></div>
+        </section>
+        <div class="route-cover" role="img" aria-label="成都城市屋顶与远处的天际线"><div class="wrap cover-label">从一盏茶，到一座山。</div></div>
+        <div class="wrap layout">
+            <div>
+                <section id="day-one">
+                    <div class="day-title"><b>01</b><h2>巷子里的一天</h2><small>OLD TOWN · 轻松步行</small></div>
+                    <div class="timeline">
+                        <article class="stop"><div class="time">09:30</div><div class="stop-content"><h3>人民公园 · 先喝一碗盖碗茶</h3><p>找个临湖的位置坐下，听听闲谈，看竹椅间的早晨慢慢热闹起来。</p><a href="destinations.html#kuanzhai">继续逛老城巷陌 ↗</a></div></article>
+                        <article class="stop"><div class="time">11:30</div><div class="stop-content"><h3>宽窄巷子 · 沿着青砖慢慢走</h3><p>从宽巷子逛到井巷子，挑一间顺眼的小馆吃午饭，不必把每个店都排进清单。</p><a href="destinations.html#kuanzhai">目的地小记：宽窄巷子 ↗</a></div></article>
+                        <article class="stop"><div class="time">15:00</div><div class="stop-content"><h3>太古里 · 城市里的古今一刻</h3><p>去大慈寺看一眼旧屋檐，再绕进街区找间咖啡店休息。</p><a href="destinations.html#taikoo">目的地小记：太古里 ↗</a></div></article>
+                        <article class="stop"><div class="time">19:00</div><div class="stop-content"><h3>玉林路 · 把晚餐交给一口热锅</h3><p>晚上不妨和朋友围坐一桌。毛肚、黄喉和一碗冰粉，慢慢涮，慢慢聊。</p><a href="food.html">打开成都好味清单 ↗</a></div></article>
+                    </div>
+                </section>
+                <section id="day-two">
+                    <div class="day-title"><b>02</b><h2>山里的半日闲</h2><small>QINGCHENG MOUNTAIN · 留足往返时间</small></div>
+                    <div class="timeline">
+                        <article class="stop"><div class="time">08:00</div><div class="stop-content"><h3>出发去青城山</h3><p>建议提前确认当日交通与开放信息，带上水和轻便外套；山里天气变化快，留出充足往返时间。</p><a href="destinations.html#qingcheng">目的地小记：青城山 ↗</a></div></article>
+                        <article class="stop"><div class="time">10:00</div><div class="stop-content"><h3>沿山径散步 · 听林间的风</h3><p>根据体力选择适合自己的步道，走累了就停一停。山行的重点不是走多远，而是呼吸几口新鲜空气。</p></div></article>
+                        <article class="stop"><div class="time">15:00</div><div class="stop-content"><h3>回到城里 · 给旅程留个空白</h3><p>返程后不再安排紧凑行程，找家茶馆坐坐，把这两天看到的风景慢慢记下来。</p><a href="food.html">给今天选一顿好味道 ↗</a></div></article>
+                    </div>
+                </section>
+                <div class="end-note">最好的旅行计划，也包括一点没有计划。</div>
+            </div>
+            <aside>
+                <div class="side-label">KEEP THIS IN MIND</div><h2>出发前的小纸条</h2>
+                <div class="check"><b>01</b><span>山地路线和交通可能随季节调整，出发前查看官方最新信息。</span></div>
+                <div class="check"><b>02</b><span>步行日穿舒适的鞋，轻装出行，也给临时停留留点时间。</span></div>
+                <div class="check"><b>03</b><span>热门餐馆等位时间不固定，错峰用餐会更自在。</span></div>
+                <div class="tip"><strong>慢游的小建议</strong>这不是打卡清单。挑喜欢的部分走，剩下的留给下一次。</div>
+                <div class="side-links"><a href="destinations.html">先选几个想去的地方 ↗</a><a href="food.html">看看成都吃什么 ↗</a><a href="index.html">返回首页继续探索 ↗</a></div>
+            </aside>
+        </div>
+    </main>
+    <footer><div class="wrap"><span>成都慢游 · 行程请按实际交通与开放情况调整</span><span><a href="index.html">首页</a>　·　<a href="destinations.html">目的地</a>　·　<a href="food.html">美食</a></span></div></footer>
+</body>
+</html>
